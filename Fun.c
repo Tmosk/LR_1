@@ -6,7 +6,7 @@
 //Generate array of cinema; requires  pointer to first element
 struct cinema* generate(struct cinema* c,int size) {
     c=(struct cinema*)malloc(sizeof(struct cinema)*size);
-    printf("Enter data in format:\tNAME\tSESSION\tPRICE\tV_NUMBER\n (0 to random)\n");
+    printf("Enter data in format:\tNAME\tSESSION \tPRICE\tV_NUMBER\n (0 to random)\n");
     getc(stdin);
     for (int i = 0; i < size; ++i) {
         fgets(c[i].name, 30 * sizeof(char), stdin);
@@ -20,7 +20,9 @@ struct cinema* generate(struct cinema* c,int size) {
             scanf_s("%d",&c[i].session);
             scanf_s("%d",&c[i].price);
             scanf_s("%d",&c[i].v_number);
+            scanf_s("%c");
         }
+        printf("next\n");
     }
     return c;
 }
@@ -65,7 +67,15 @@ void cin_edit(struct cinema *c) {
 //Return address of cinema with same name value
 struct cinema *find_by_fullname(struct cinema *c, int size, const char* parameter) {
     for (int i = 0; i < size; ++i) {
-        if(c[i].name==parameter){
+        int j=0,flag=0;
+        while (c[i].name[j]!='\n'){
+            if((c[i].name[j]!=parameter[j])){
+                flag=1;
+                break;
+            }
+            j++;
+        }
+        if(flag==0){
             return (c+i);
         }
     }
@@ -100,7 +110,7 @@ struct cinema *find_by_vnumber(struct cinema *c, int size, int parameter) {
 }
 //Allows sorting array of structs with user interface
 void sort_with_interface(struct cinema *c, int size) {
-    printf("Viberi po kakomu paramertu sortiruem:\n1)\tNAME\n2)\tSESSION\n3)\tPRICE\n4)\tV_NUMBER\n");
+    printf("Chose sort parameter:\n1)\tNAME\n2)\tSESSION\n3)\tPRICE\n4)\tV_NUMBER\n");
     int sort_form;
     scanf_s("%d",&sort_form);
     switch (sort_form) {
@@ -128,3 +138,32 @@ int cmp_session(const void *a, const void *b) {return ((*((struct cinema*)a)).se
 int cmp_price(const void *a, const void *b) {return ((*((struct cinema*)a)).price-(*((struct cinema*)b)).price);}
 //Compare by v_number
 int cmp_v_number(const void *a, const void *b) {return ((*((struct cinema*)a)).v_number-(*((struct cinema*)b)).v_number);}
+
+//Return address of cinema founded using user interface
+struct cinema *find_with_interface(struct cinema *list, int size) {
+    printf("Chose search parameter:\n1)\tNAME\n2)\tSESSION\n3)\tPRICE\n4)\tV_NUMBER\n");
+    int sort_form;
+    scanf_s("%d",&sort_form);
+    char arr[30];
+    int parameter;
+    if(sort_form==1){
+        printf("Enter name:\n");
+        scanf_s("%d");
+        fgets(arr, 30 * sizeof(char), stdin);
+    } else{
+        printf("Enter parameter: ");
+        scanf_s("%d",&parameter);
+    }
+    switch (sort_form) {
+        case 1:
+            return find_by_fullname(list,size,arr);
+        case 2:
+            return find_by_session(list,size,parameter);
+        case 3:
+            return find_by_price(list,size,parameter);
+        case 4:
+            return find_by_vnumber(list,size,parameter);
+        default:
+            return NULL;
+    }
+}

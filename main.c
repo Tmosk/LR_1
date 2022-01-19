@@ -12,9 +12,7 @@ int main() {
     scanf_s("%d",&kol_vo);
     c_list=generate(c_list,kol_vo);
     print_list(c_list,kol_vo);
-    char arr[100];
-    fgets(arr, 30 * sizeof(char), stdin);
-    print_str()
-    print_list(c_list,kol_vo);
+    print_str(find_with_interface(c_list,kol_vo));
+    //print_list(c_list,kol_vo);
     return 0;
 }

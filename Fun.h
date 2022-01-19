@@ -20,14 +20,16 @@ void print_str(struct cinema* c);
 void print_list(struct cinema* c,int num);
 void rand_str(char* str,int len);
 void cin_edit(struct cinema* c);
-struct cinema* find_full_session(struct cinema* c,int size,int parameter);
-void sort_with_interface(struct cinema* c,int size);
-//FOR SORT
+struct cinema *find_by_fullname(struct cinema *list, int size, const char* parameter);
+struct cinema* find_by_session(struct cinema* list,int size,int parameter);
+struct cinema* find_by_price(struct cinema *list, int size, int parameter);
+struct cinema* find_by_vnumber(struct cinema *list, int size, int parameter);
+struct cinema* find_with_interface(struct cinema *list, int size);
+void sort_with_interface(struct cinema* list,int size);
 int cmp_name(const void * a, const void * b);
 int cmp_session(const void * a, const void * b);
 int cmp_price(const void * a, const void * b);
 int cmp_v_number(const void * a, const void * b);
-// END FOR SORT
 
 
 #endif //LR_1_FUN_H
