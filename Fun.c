@@ -167,3 +167,32 @@ struct cinema *find_with_interface(struct cinema *list, int size) {
             return NULL;
     }
 }
+
+void delete_element_by_name(struct cinema *list, int *size, const char *parameter) {
+    delete_element(list,size, find_by_fullname(list,*size,parameter));
+}
+
+void delete_element_by_session(struct cinema *list, int *size, int parameter) {
+    delete_element(list,size, find_by_session(list,*size,parameter));
+}
+
+void delete_element_by_prise(struct cinema *list, int *size, int parameter) {
+    delete_element(list,size, find_by_price(list,*size,parameter));
+}
+
+void delete_element_by_vnumber(struct cinema *list, int *size, int parameter) {
+    delete_element(list,size, find_by_vnumber(list,*size,parameter));
+}
+
+void delete_element_with_interface(struct cinema *list, int *size) {
+    delete_element(list,size, find_with_interface(list,*size));
+}
+
+void delete_element(struct cinema *list, int *size, struct cinema *element) {
+    do{
+        *element= *(element+1);
+        ++element;
+    }
+    while (element!=&(list[*size-1]));
+    *size=*size-1;
+}
